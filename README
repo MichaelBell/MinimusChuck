@@ -1,0 +1,42 @@
+Wii Nunchuck to USB Keyboard implementation
+
+You'll need:
+- A Wii Nunchuck
+- A v1 Minimus
+- An Adafruit nunchuck breakout
+
+This implementation converts left/right/up/down on the joystick to a/d/w/s
+and the two buttons to Shift and Ctrl.
+Currently the accelerometer is ignored.
+
+Get LUFA from http://www.fourwalledcubicle.com/LUFA.php and configure it's
+location in the makefile.
+
+Ensure minimus is ready to be programmed (while holding HWB, press Reset)
+Then to build and upload, just run "make"
+
+Minimus pin out (from https://wiki.nottinghack.org.uk/wiki/Arduino_IDE_with_Minimus#Minimus_to_Arduino_Pin_Out):
+
+                    +------+
+                    |+-++-+|
+      +     +       |+-++-+|       +     +
+ OTHER| ARD | AVR   |      |   AVR | ARD |OTHER
+      |     |     +-+------+-+     |     |
+      |  20 | PC2 |+     +  +| VCC | VCC |
+      |   0 | PD0 |+  +     +| PC4 | 19  |
+      |   1 | PD1 |+     +  +| PC5 | 18  | PWM
+   RX |   2 | PD2 |+   +--+ +| RST | RST |
+   TX |   3 | PD3 |+   |  | +| PC6 | 17  | PWM
+      |   4 | PD4 |+   +--+ +| PC7 | 16  |
+ LEDb |   5 | PD5 |+        +| PB7 | 15  | PWM
+ LEDa |   6 | PD6 |+        +| PB6 | 14  |
+  HWB |   7 | PD7 |+  ++ ++ +| PB5 | 13  |
+      |   8 | PB0 |+ hwb rst+| PB4 | 12  |
+  SCK |   9 | PB1 |+        +| PB3 | 11  | MISO
+      | GND | GND |+ b a  + +| PB2 | 10  | MOSI
+      +     +     +----------+     +     +
+
+Connect VCC to + on the Nunchuck breakout and GND to - 
+PB2 to Clock (c on the breakout), and PB3 to Data (d).
+
+If either the blue or red LEDs on the Minimus stay on, then something is wrong.
